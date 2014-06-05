@@ -1,0 +1,16 @@
+{
+    "name": "Media",
+    "version": "0.0.1",
+    "main": [
+        "js/app.js"
+    ],
+    "dependencies": {
+        "requirejs": "*",
+        "requirejs-text": "*",
+        "requirejs-domready": "*"
+    },
+    "devDependencies": {
+
+    },
+    "private": true
+}

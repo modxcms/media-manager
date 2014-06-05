@@ -1,0 +1,16 @@
+<div class="uploader">
+    <h3>Upload in progress</h3>
+    <tpl if="files && files.length &gt; 0">
+        <ul>
+            <tpl for="files">
+                <li class="upload-record">
+                    <span class="filename">{name}</span>
+                    <span class="fileprogress">
+                        <span class="progress" style="width: {[Math.floor((Math.random() * 100) + 1)]}%"></span>
+                    </span>
+                    <span class="fileactions">actions</span>
+                </li>
+            </tpl>
+        </ul>
+    </tpl>
+</div>

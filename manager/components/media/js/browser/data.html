@@ -1,0 +1,34 @@
+<tpl for=".">{[this.bootstrap(xindex, xcount, values)]}
+    <li class="record {[this.getClass(xindex)]}">
+        <a href="javascript:;">
+            <img src="http://adaptive-images.com/content/images/thumbnails/kirsty-2.jpg" />
+            <span>{name}.jpg</span>
+        </a>
+
+        <div class="inline-actions x-hidden">
+            <ul>
+                <li>
+                    <a class="do selectRecord" href="javascript:;">
+                        <i class="icon icon-check"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="do updateRecord" href="javascript:;">
+                        <i class="icon icon-pencil"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="do displayPreview" href="javascript:;">
+                        <i class="icon icon-search"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="do removeRecord" href="javascript:;">
+                        <i class="icon icon-times"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>
+</tpl>
+<div class="x-clear"></div>

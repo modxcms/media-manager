@@ -1,0 +1,47 @@
+dl.record {
+    $radius: 5px;
+
+    .grid-menu {
+        width: 100%;
+
+        .x-menu {
+            position: absolute;
+            right: 4px; // @todo why ?
+            text-align: right;
+            border-top-left-radius: $radius;
+            border-bottom-right-radius: $radius;
+            border-bottom-left-radius: $radius;
+            overflow: hidden;
+        }
+        .x-menu,
+        .x-menu-list-item {
+            background: #333;
+            color: #fff;
+        }
+        a.x-menu-item {
+            color: #fff;
+        }
+        .x-menu-item-active {
+            background: #fff;
+            color: #333;
+            a.x-menu-item {
+                color: #333;
+            }
+        }
+    }
+    .listActions {
+        background: #333;
+        color: #fff;
+        border-radius: $radius;
+        padding: $radius;
+        display: block;
+        text-align: center;
+    }
+
+    .active {
+        .listActions {
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+    }
+}

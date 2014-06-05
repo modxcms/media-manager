@@ -1,0 +1,63 @@
+.dropzone {
+    position: absolute;
+    top: 0;
+    background: rgba(0, 0, 0, .65);
+    color: #fff;
+    width: 100%;
+    height: 100%;
+
+    &:after {
+        content: "\f019";
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: inherit;
+        position: absolute;
+        font-size: 400px;
+        color: #fff;
+        opacity: .5;
+        top: 50%;
+        left: 50%;
+        margin: -300px 0 0 -200px;
+        //z-index: 1;
+    }
+
+    .uploader {
+        background: #333;
+        color: #000;
+        position: relative;
+        width: 70%;
+        margin: 0 auto;
+        padding: 15px;
+        border-radius: 20px;
+        z-index: 2;
+
+        li.upload-record {
+            margin-bottom: 1em;
+            line-height: 2em;
+            height: 2em;
+
+            span {
+                display: inline-block;
+            }
+
+            .filename {
+                width: 30%;
+            }
+            .fileprogress {
+                height: 100%;
+                background: pink;
+                border-radius: 3px;
+                width: 50%;
+                overflow: hidden;
+            }
+            .progress {
+                height: 100%;
+                background: #000;
+            }
+            .fileactions {
+                float: right;
+            }
+        }
+    }
+}
