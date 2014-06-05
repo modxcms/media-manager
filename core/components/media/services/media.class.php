@@ -67,7 +67,7 @@ class Media
             'processors_path' => $paths['base'] . 'processors/',
             'chunks_path' => $paths['base'] . 'elements/chunks/',
             'chunks_suffix' => '.html',
-            'add_package' => true,
+            'add_package' => false,
             // DB migrations
             'migrations_path' => $paths['base'] . 'migrations/',
 

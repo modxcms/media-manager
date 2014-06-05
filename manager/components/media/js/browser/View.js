@@ -24,10 +24,10 @@ define(
                 ,cls: 'container'
                 ,layout: 'anchor'
                 ,anchor: '100%'
-                ,autoHeight: true
-                ,defaults: {
-                    layout: 'anchor'
-                }
+//                ,autoHeight: true
+//                ,defaults: {
+//                    layout: 'anchor'
+//                }
                 ,items: [{
                     html: '<h2>' + _('media.management') + '</h2>'
                     ,border: false
@@ -35,17 +35,17 @@ define(
                 },{
                     xtype: 'panel'
                     ,autoHeight: true
+                    //,layout: 'fit'
                     ,items: [{
                         html: _('media.management_desc')
                         ,border: false
                         ,bodyCssClass: 'panel-desc'
                     },{
                         xtype: 'panel'
-                        ,id: 'content-wrapper'
-                        ,autoHeight: true
-                        ,bodyStyle: {
-                            overflow: 'hidden'
-                        }
+//                        ,autoHeight: true
+//                        ,bodyStyle: {
+//                            overflow: 'hidden'
+//                        }
                         ,tbar: [{
                             text: 'Add files'
                             ,handler: this.showDropZone
@@ -70,12 +70,63 @@ define(
                             ,scope: this
                         }]
 
-                        ,items: [{
-                            xtype: 'media-'+ viewType
-                        }]
-                        ,currentType: viewType
 
-                        ,bbar: new Ext.PagingToolbar({
+                        ,currentType: viewType
+                        ,id: 'content-wrapper'
+                        ,layout: 'border'
+                        ,width: '100%'
+                        //,height: '100%'
+                        ,items: [{
+                            region: 'west'
+                            //,title: 'West'
+                            ,width: 250
+                            ,autoScroll: true
+                            ,split: true
+                            ,collapseMode: 'mini'
+                            ,items: [{
+                                html: 'Tree goes here'
+                                //,border: false
+                            }]
+                        },{
+                            region: 'center'
+                            //,title: 'Center'
+                            //,layout: 'fit'
+                            ,itemId: 'browser-view'
+                            ,autoScroll: true
+                            ,items: [{
+                                html: 'view goes here'
+                            }]
+                        }/*,{
+                            xtype: 'media-'+ viewType
+                            ,region: 'center'
+                            //,layout: 'fit'
+                            ,itemId: 'browser-view'
+                        }*/]
+
+                        ,_items: [{
+                            xtype: 'panel'
+                            ,layout: 'border'
+                            ,width: '100%'
+                            ,id: 'content-wrapper'
+//                            ,tbar: [{
+//                                text: 'test'
+//                            }]
+                            ,items: [{
+                                region: 'west'
+                                ,width: 350
+                                ,items: [{
+                                    html: 'Tree goes here'
+                                    ,border: false
+                                }]
+                            },{
+                                xtype: 'media-'+ viewType
+                                ,region: 'center'
+                                ,layout: 'fit'
+                                ,itemId: 'browser-view'
+                            }]
+                        }]
+
+                        ,_bbar: new Ext.PagingToolbar({
                             pageSize: config.pageSize || (parseInt(MODx.config.default_per_page) || 20)
                             ,store: store
                             //,displayInfo: true
@@ -103,7 +154,9 @@ define(
                 // Previously selected record (if any)
                 var selected = this.getView().getSelectedIndexes();
                 console.log('selected', selected);
-                container.removeAll();
+                //container.removeAll();
+                //container.removeAt(1);
+                this.getView().destroy();
                 var content;
                 switch (type) {
                     case 'list':
@@ -147,7 +200,11 @@ define(
                 return Ext.getCmp('content-wrapper');
             }
             ,getView: function() {
-                return this.getWrapper().items.items[0];
+                return this.getWrapper().items.items[1];
+
+                return this.getWrapper()
+                    .getComponent('browser-view');
+                    //.find('itemId', 'browser-view')[0];
             }
 
             ,showDropZone: function() {
