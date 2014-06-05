@@ -11,9 +11,10 @@ define(
          * @type {Ext.data.JsonStore}
          */
         var store = new Ext.data.JsonStore({
-            url: Media.config.connector_url
+            url: MODx.config.connector_url
             ,baseParams: {
-                action: 'cmpitem/getList'
+                action: 'browser/directory/getFiles'
+                ,source: MODx.config.default_media_source
             }
             ,root: 'results'
             ,totalProperty: 'total'

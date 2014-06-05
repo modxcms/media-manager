@@ -45,25 +45,6 @@ class MediaBrowserManagerController extends MediaManagerController
 HTML
         );
     }
-
-    /**
-     * @inherit
-     */
-    public function _loadCustomCssJs()
-    {
-        $this->addJavascript($this->jsURL . 'home/cmpitem.grid.js');
-        $this->addJavascript($this->jsURL . 'home/home.panel.js');
-
-        $this->addHtml(
-<<<HTML
-<script>
-    Ext.onReady(function() {
-        MODx.add('media-panel-home');
-    });
-</script>
-HTML
-        );
-    }
 }
 
 /**
