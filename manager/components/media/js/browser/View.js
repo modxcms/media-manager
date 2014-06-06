@@ -24,17 +24,17 @@ define(
                 ,cls: 'container'
                 ,layout: 'anchor'
                 ,anchor: '100%'
-//                ,autoHeight: true
-//                ,defaults: {
-//                    layout: 'anchor'
-//                }
+                ,autoHeight: true
+                ,defaults: {
+                    layout: 'anchor'
+                }
                 ,items: [{
                     html: '<h2>' + _('media.management') + '</h2>'
                     ,border: false
                     ,cls: 'modx-page-header'
                 },{
                     xtype: 'panel'
-                    ,autoHeight: true
+                    //,autoHeight: true
                     //,layout: 'fit'
                     ,items: [{
                         html: _('media.management_desc')
@@ -73,21 +73,22 @@ define(
 
                         ,currentType: viewType
                         ,id: 'content-wrapper'
-                        ,layout: 'border'
+                        //,layout: 'border'
+                        ,layout: 'column'
                         ,width: '100%'
                         //,height: '100%'
                         ,items: [{
-                            region: 'west'
+                            //region: 'west'
                             //,title: 'West'
-                            ,width: 250
-                            ,autoScroll: true
-                            ,split: true
-                            ,collapseMode: 'mini'
+                            width: 250
+//                            ,autoScroll: true
+//                            ,split: true
+//                            ,collapseMode: 'mini'
                             ,items: [{
                                 html: 'Tree goes here'
                                 //,border: false
                             }]
-                        },{
+                        }/*,{
                             region: 'center'
                             //,title: 'Center'
                             //,layout: 'fit'
@@ -96,12 +97,13 @@ define(
                             ,items: [{
                                 html: 'view goes here'
                             }]
-                        }/*,{
+                        }*/,{
                             xtype: 'media-'+ viewType
-                            ,region: 'center'
+                            //,region: 'center'
+                            ,columnWidth: 1
                             //,layout: 'fit'
                             ,itemId: 'browser-view'
-                        }*/]
+                        }]
 
                         ,_items: [{
                             xtype: 'panel'
@@ -126,7 +128,7 @@ define(
                             }]
                         }]
 
-                        ,_bbar: new Ext.PagingToolbar({
+                        ,bbar: new Ext.PagingToolbar({
                             pageSize: config.pageSize || (parseInt(MODx.config.default_per_page) || 20)
                             ,store: store
                             //,displayInfo: true
@@ -169,6 +171,7 @@ define(
                         break;
                 }
 
+                content.columnWidth = 1;
                 Ext.state.Manager.set('media-view', container.currentType);
                 container.add(content);
                 container.doLayout();
