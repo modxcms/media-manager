@@ -17,12 +17,6 @@ define(
             config = config || {};
 
             var viewType = Ext.state.Manager.get('media-view', 'data');
-            // Hide the "new window" toolbar button
-            //MODx.browserOpen = true;
-//            store.on('load', function() {
-//                console.log('store load! view refresh');
-//                this.getView().refresh();
-//            }, this);
 
             Ext.apply(config, {
                 border: false
@@ -39,7 +33,7 @@ define(
                     ,border: false
                     ,cls: 'modx-page-header'
                 },{
-                    xtype: 'panel'
+                    xtype: 'container'
                     //,autoHeight: true
                     //,layout: 'fit'
                     ,items: [{
@@ -95,7 +89,8 @@ define(
                             ,currentType: viewType
                             ,id: 'content-wrapper'
                             ,columnWidth: 1
-                            ,bbar: new Ext.PagingToolbar({
+
+                            ,_bbar: new Ext.PagingToolbar({
                                 pageSize: config.pageSize || (parseInt(MODx.config.default_per_page) || 20)
                                 ,store: store
                             })

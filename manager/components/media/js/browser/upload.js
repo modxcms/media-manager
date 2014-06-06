@@ -32,29 +32,25 @@ define(
             init: function(component) {
                 this.listenerTry = 0;
                 console.info('Plugin init', component);
+
                 // Add a reference to the "extended" component
                 this.component = component;
                 this.addContainerEvents();
+
                 // Allow the component to access this instance
                 this.component.getUploader = this.getUploader.createDelegate(this);
-                // @todo: only add listeners if they do not already exist
+
                 // Add the drop zone DOM element
-                //console.log('component events', this.component.events);
                 this.component.on('render', this.setDropZone, this);
-                //console.log('store events', this.component.store.events);
                 if (!this.storeHasListener()) {
-                    console.log('setting listener on store');
                     this.component.store.on('load', function() {
-                        console.log('store loaded!');
                         this.setDropZone();
                     }, this);
                 }
             }
 
             ,addContainerEvents: function() {
-
                 this.component.addEvents('beforeShowDropZone');
-
 
                 this.component.on('beforeShowDropZone', function() {
                     console.log('on before show drop zone');
@@ -72,7 +68,6 @@ define(
                 if (store.hasListener('load')) {
                     var listeners = store.events['load'].listeners;
                     Ext.each(listeners, function(listener, k) {
-                        //console.log(listener.scope);
                         if (listener && listener.scope && listener.scope instanceof Ext.ux.UploadPlugin) {
                             console.info('Previous listener already set to store', k, 'removing it');
                             listeners.splice(k, 1);

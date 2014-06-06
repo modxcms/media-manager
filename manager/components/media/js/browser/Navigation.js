@@ -13,16 +13,12 @@ define(
                 }
             });
             Media.Navigation.superclass.constructor.call(this, config);
-            //this.getSourceList();
         };
         Ext.extend(Media.Navigation, MODx.panel.FileTree, {
             onSourceListReceived: function(sources) {
-                var Store = this.store;
-
                 for (var k = 0; k < sources.length; k++) {
-                    var source = sources[k];
-
-                    var id = 'media-source-' + source.id
+                    var source = sources[k]
+                        ,id = 'media-source-' + source.id
                         ,exists = Ext.getCmp(id);
 
                     if (!exists) {
@@ -37,22 +33,8 @@ define(
                                 hidden: true
                             }
                             ,listeners: {
-                                click: {
-                                    fn: function(node, vent) {
-                                        var path = node.id
-                                            ,source = node.getOwnerTree().source;
-
-                                        console.log('Path %s source %s', path, source);
-                                        Store.load({
-                                            params: {
-                                                action: 'browser/directory/getFiles'
-                                                ,dir: path
-                                                ,source: source
-                                            }
-                                        });
-                                    }
-                                    ,scope: this
-                                }
+                                click: this.listData
+                                ,scope: this
                             }
                         });
 
@@ -60,6 +42,34 @@ define(
                     }
                 }
                 this.doLayout();
+            }
+
+            /**
+             * Update the store parameters when a node is clicked
+             *
+             * @param {Ext.tree.TreeNode} node
+             * @param {Ext.EventObject} vent
+             */
+            ,listData: function(node, vent) {
+                var dir = node.id
+                    ,Store = this.store
+                    ,source = node.getOwnerTree().source
+                    ,previous = Store.lastOptions.params || {};
+
+                if (previous.dir && previous.dir == dir &&
+                    previous.source && previous.source == source) {
+                    // Same parameters, do nothing
+                    return;
+                }
+
+                // Build the store parameters
+                var options = Ext.apply({}, Store.lastOptions);
+                options.params = Ext.apply(Store.lastOptions.params || {}, {
+                    dir: dir
+                    ,source: source
+                });
+
+                Store.load(options);
             }
         });
         Ext.reg('media-manager-nav', Media.Navigation);
