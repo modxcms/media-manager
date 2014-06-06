@@ -1,5 +1,5 @@
 define(
-    ['browser/List', 'browser/Data', 'browser/Store'],
+    ['browser/List', 'browser/Data', 'browser/Store', 'browser/Navigation'],
 
     /**
      * @param {Media.ListView} List
@@ -18,7 +18,11 @@ define(
 
             var viewType = Ext.state.Manager.get('media-view', 'data');
             // Hide the "new window" toolbar button
-            MODx.browserOpen = true;
+            //MODx.browserOpen = true;
+//            store.on('load', function() {
+//                console.log('store load! view refresh');
+//                this.getView().refresh();
+//            }, this);
 
             Ext.apply(config, {
                 border: false
@@ -26,7 +30,7 @@ define(
                 ,cls: 'container'
                 ,layout: 'anchor'
                 ,anchor: '100%'
-                ,autoHeight: true
+                //,autoHeight: true
                 ,defaults: {
                     layout: 'anchor'
                 }
@@ -78,30 +82,8 @@ define(
                         ,items: [{
                             width: 250
                             ,items: [{
-                                xtype: 'modx-panel-filetree'
-                                ,id: 'mediabrowser-sources-list-' + Ext.id()
-                                ,onSourceListReceived: function(sources) {
-                                    for(var k=0;k<sources.length;k++){
-                                        var source = sources[k];
-                                        if(!this.sourceTrees[source.name]){
-                                            this.sourceTrees[source.name] = MODx.load({
-                                                xtype: 'modx-tree-directory'
-                                                ,id: 'mediabrowser-source-tree-' + source.id
-                                                ,rootName: source.name
-                                                ,hideSourceCombo: true
-                                                ,source: source.id
-                                                ,tbar: false
-                                                ,tbarCfg: {
-                                                    hidden: true
-                                                }
-                                            })
-                                        }
-
-                                        this.add(this.sourceTrees[source.name]);
-                                    }
-                                    this.doLayout();
-                                    //  this.render();
-                                }
+                                xtype: 'media-manager-nav'
+                                ,store: store
                             }]
                         },{
                             items: [{
@@ -123,7 +105,7 @@ define(
             });
             Media.HomeView.superclass.constructor.call(this, config);
         };
-        Ext.extend(Media.HomeView, MODx.Panel, {
+        Ext.extend(Media.HomeView, Ext.Container, {
             /**
              * @param {string} type
              *
