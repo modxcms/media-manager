@@ -1,3 +1,10 @@
+#content-wrapper {
+    // Reset the default float so drop zone could be full height
+    .x-list-body {
+        float: none;
+    }
+}
+
 dl.record {
     $radius: 5px;
 

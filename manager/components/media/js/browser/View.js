@@ -17,6 +17,8 @@ define(
             config = config || {};
 
             var viewType = Ext.state.Manager.get('media-view', 'data');
+            // Hide the "new window" toolbar button
+            MODx.browserOpen = true;
 
             Ext.apply(config, {
                 border: false
@@ -71,71 +73,51 @@ define(
                         }]
 
 
-                        ,currentType: viewType
-                        ,id: 'content-wrapper'
-                        //,layout: 'border'
                         ,layout: 'column'
-                        ,width: '100%'
-                        //,height: '100%'
+                        //,width: '100%'
                         ,items: [{
-                            //region: 'west'
-                            //,title: 'West'
                             width: 250
-//                            ,autoScroll: true
-//                            ,split: true
-//                            ,collapseMode: 'mini'
                             ,items: [{
-                                html: 'Tree goes here'
-                                //,border: false
-                            }]
-                        }/*,{
-                            region: 'center'
-                            //,title: 'Center'
-                            //,layout: 'fit'
-                            ,itemId: 'browser-view'
-                            ,autoScroll: true
-                            ,items: [{
-                                html: 'view goes here'
-                            }]
-                        }*/,{
-                            xtype: 'media-'+ viewType
-                            //,region: 'center'
-                            ,columnWidth: 1
-                            //,layout: 'fit'
-                            ,itemId: 'browser-view'
-                        }]
+                                xtype: 'modx-panel-filetree'
+                                ,id: 'mediabrowser-sources-list-' + Ext.id()
+                                ,onSourceListReceived: function(sources) {
+                                    for(var k=0;k<sources.length;k++){
+                                        var source = sources[k];
+                                        if(!this.sourceTrees[source.name]){
+                                            this.sourceTrees[source.name] = MODx.load({
+                                                xtype: 'modx-tree-directory'
+                                                ,id: 'mediabrowser-source-tree-' + source.id
+                                                ,rootName: source.name
+                                                ,hideSourceCombo: true
+                                                ,source: source.id
+                                                ,tbar: false
+                                                ,tbarCfg: {
+                                                    hidden: true
+                                                }
+                                            })
+                                        }
 
-                        ,_items: [{
-                            xtype: 'panel'
-                            ,layout: 'border'
-                            ,width: '100%'
-                            ,id: 'content-wrapper'
-//                            ,tbar: [{
-//                                text: 'test'
-//                            }]
-                            ,items: [{
-                                region: 'west'
-                                ,width: 350
-                                ,items: [{
-                                    html: 'Tree goes here'
-                                    ,border: false
-                                }]
-                            },{
+                                        this.add(this.sourceTrees[source.name]);
+                                    }
+                                    this.doLayout();
+                                    //  this.render();
+                                }
+                            }]
+                        },{
+                            items: [{
                                 xtype: 'media-'+ viewType
-                                ,region: 'center'
-                                ,layout: 'fit'
                                 ,itemId: 'browser-view'
+                                ,height: '100%'
                             }]
+                            ,height: '100%'
+                            ,currentType: viewType
+                            ,id: 'content-wrapper'
+                            ,columnWidth: 1
+                            ,bbar: new Ext.PagingToolbar({
+                                pageSize: config.pageSize || (parseInt(MODx.config.default_per_page) || 20)
+                                ,store: store
+                            })
                         }]
-
-                        ,bbar: new Ext.PagingToolbar({
-                            pageSize: config.pageSize || (parseInt(MODx.config.default_per_page) || 20)
-                            ,store: store
-                            //,displayInfo: true
-//                            ,data: {blih: 'blah'}
-//                            ,tpl: new Ext.XTemplate('<tpl for=".">{[console.log(values)]} - {blih}</tpl>')
-                            //,items: pgItms
-                        })
                     }]
                 }]
             });
@@ -171,7 +153,7 @@ define(
                         break;
                 }
 
-                content.columnWidth = 1;
+                //content.columnWidth = 1;
                 Ext.state.Manager.set('media-view', container.currentType);
                 container.add(content);
                 container.doLayout();
@@ -203,7 +185,8 @@ define(
                 return Ext.getCmp('content-wrapper');
             }
             ,getView: function() {
-                return this.getWrapper().items.items[1];
+                return this.getWrapper().items.items[0];
+                //return this.getWrapper().items.items[1].items.items[0];
 
                 return this.getWrapper()
                     .getComponent('browser-view');

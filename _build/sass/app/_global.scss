@@ -1,0 +1,8 @@
+// Reset the default column layout margins
+.x-column {
+    margin: 0;
+
+    & + .x-column {
+        margin-left: 15px;
+    }
+}
