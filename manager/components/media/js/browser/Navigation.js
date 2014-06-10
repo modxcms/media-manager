@@ -7,15 +7,16 @@ define(
             config = config || {};
 
             Ext.applyIf(config, {
-                id: Ext.id()
-                ,listeners: {
-
-                }
+                _treePrefix: 'media-source-'
+//                id: Ext.id()
+//                ,listeners: {
+//
+//                }
             });
             Media.Navigation.superclass.constructor.call(this, config);
         };
         Ext.extend(Media.Navigation, MODx.panel.FileTree, {
-            onSourceListReceived: function(sources) {
+            _onSourceListReceived: function(sources) {
                 for (var k = 0; k < sources.length; k++) {
                     var source = sources[k]
                         ,id = 'media-source-' + source.id
@@ -42,6 +43,26 @@ define(
                     }
                 }
                 this.doLayout();
+            }
+
+            ,loadTree: function(source) {
+                return MODx.load({
+                    xtype: 'modx-tree-directory'
+                    ,itemId: this._treePrefix + source.id
+                    ,stateId: this._treePrefix + source.id
+                    ,id: this._treePrefix + source.id
+                    ,rootName: source.name
+                    ,hideSourceCombo: true
+                    ,source: source.id
+                    ,tbar: false
+                    ,tbarCfg: {
+                        hidden: true
+                    }
+                    ,listeners: {
+                        click: this.listData
+                        ,scope: this
+                    }
+                });
             }
 
             /**
