@@ -5,13 +5,6 @@ define(
      * @return {Ext.data.JsonStore}
      */
     function() {
-        var url = MODx.config.connector_url
-            ,action = 'browser/directory/getFiles';
-
-        if (!MODx.panel.FileTree) {
-            url = MODx.config.connectors_url+'browser/directory.php';
-            action = 'getfiles';
-        }
         /**
          * Shared store for both view types
          *
@@ -22,15 +15,17 @@ define(
             ,dir: ''
         });
         Ext.apply(params, {
-            action: action
+            action: (MODx.isRevo('>=', '2.3.0-dev') ? 'browser/directory/' : '') + 'getFiles'
         });
 
         var store = new Ext.data.JsonStore({
-            url: url
+            url: MODx.isRevo('>=', '2.3.0-dev')
+                ? MODx.config.connector_url
+                : MODx.config.connectors_url+'browser/directory.php'
             ,baseParams: params
             ,root: 'results'
             ,totalProperty: 'total'
-            ,fields: ['id', 'name', 'description', 'thumb', 'size']
+            ,fields: ['id', 'name', 'description', 'thumb', 'size', 'selected']
         });
 
         store.load();

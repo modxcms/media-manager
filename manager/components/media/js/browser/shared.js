@@ -101,6 +101,19 @@ define(
                 );
             }
 
+            ,toggleSelection: function(index) {
+                var node = this.getNode(index)
+                    ,record = this.getRecord(node);
+
+                if (this.getSelectedIndexes().indexOf(index) != -1) {
+                    this.deselect(index);
+                    record.set('selected', false);
+                } else {
+                    this.select(index, true);
+                    record.set('selected', true);
+                }
+            }
+
             ,navigateTo: function(elem, index, node, vent) {
                 console.log('navigate!', index);
             }

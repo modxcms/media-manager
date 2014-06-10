@@ -233,13 +233,14 @@ define(
 
             ,selectRecord: function(params) {
                 var idx = params.index;
-                if (this.getSelectedIndexes().indexOf(idx) != -1) {
-                    // unselect
-                    this.deselect(idx);
-                } else {
-                    // select
-                    this.select(idx, true);
-                }
+                this.toggleSelection(idx);
+//                if (this.getSelectedIndexes().indexOf(idx) != -1) {
+//                    // unselect
+//                    this.deselect(idx);
+//                } else {
+//                    // select
+//                    this.select(idx, true);
+//                }
             }
 
             ,fadeAndDestroy: function(elem) {

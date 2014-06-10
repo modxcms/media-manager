@@ -9,6 +9,8 @@ ul.data {
         margin-bottom: 10px;
         position: relative;
         //background: rgba(0, 0, 0, .8);
+        width: 300px;
+        height: 100px;
 
         &.x-view-selected {
             opacity: .7;

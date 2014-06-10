@@ -34,27 +34,22 @@ define(
                     ,cls: 'modx-page-header'
                 },{
                     xtype: 'container'
-                    //,autoHeight: true
-                    //,layout: 'fit'
                     ,items: [{
                         html: _('media.management_desc')
                         ,border: false
                         ,bodyCssClass: 'panel-desc'
                     },{
                         xtype: 'panel'
-//                        ,autoHeight: true
-//                        ,bodyStyle: {
-//                            overflow: 'hidden'
-//                        }
+
                         ,tbar: [{
                             text: 'Add files'
                             ,handler: this.showDropZone
                             ,scope: this
-                        },{
+                        }/*,{
                             text: 'Batch actions'
                         },{
                             text: 'Display'
-                        },{
+                        }*/,{
                             text: 'Get selected'
                             ,handler: this.countSelected
                             ,scope: this
@@ -72,34 +67,34 @@ define(
 
 
                         ,layout: 'column'
-                        //,width: '100%'
+                        ,defaults: {
+                            border: false
+                        }
                         ,items: [{
+                            // Trees
                             width: 250
                             ,items: [{
                                 xtype: 'media-manager-nav'
                                 ,store: store
+                                ,border: false
                             }]
                         },{
+                            // Display
                             items: [{
                                 xtype: 'media-'+ viewType
                                 ,itemId: 'browser-view'
                                 ,height: '100%'
+                                ,border: false
                             }]
                             ,height: '100%'
                             ,currentType: viewType
                             ,id: 'content-wrapper'
                             ,columnWidth: 1
-
-                            ,_bbar: new Ext.PagingToolbar({
-                                pageSize: config.pageSize || (parseInt(MODx.config.default_per_page) || 20)
-                                ,store: store
-                            })
                         }]
                     }]
                 }]
             });
             Media.HomeView.superclass.constructor.call(this, config);
-            //store.load();
         };
         Ext.extend(Media.HomeView, Ext.Container, {
             /**

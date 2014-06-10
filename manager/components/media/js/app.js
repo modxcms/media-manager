@@ -8,9 +8,9 @@ require.config({
 });
 
 require(
-    ['browser/View', 'vendor/requirejs-domready/domReady!'],
+    ['browser/View', 'utils/version', 'vendor/requirejs-domready/domReady!'],
 
-    function(View, domReady) {
+    function(View, Version, domReady) {
         MODx.add('media-panel-home');
     }
 );

@@ -26,7 +26,7 @@ define(
 
                 ,columns: [{
                     header: ''
-                    ,tpl: '<input type="checkbox" class="selector" />'
+                    ,tpl: '<input type="checkbox" class="selector" <tpl if="selected">checked</tpl> />'
                     ,width: .03
                 },{
                     header: _('media.name')
@@ -120,13 +120,13 @@ define(
                 container.removeClass('active');
             }
 
-            ,toggleSelection: function(index) {
-                if (this.getSelectedIndexes().indexOf(index) != -1) {
-                    this.deselect(index);
-                } else {
-                    this.select(index, true);
-                }
-            }
+//            ,toggleSelection: function(index) {
+//                if (this.getSelectedIndexes().indexOf(index) != -1) {
+//                    this.deselect(index);
+//                } else {
+//                    this.select(index, true);
+//                }
+//            }
 
             ,onClickTest: function(me, index, node, vent) {
                 var record = this.getRecord(node)
