@@ -2,6 +2,8 @@
 
 2.2.x Media Manager Plugin to become part of 2.3
 
+> Notes : the current "release" is also an experimentation to using RequireJS a Bower to help build CMPs, so do not feel scared about the "non conventional" way of doing things
+
 ## Manual installation
 
 > This assume your Revolution installation is in a sub folder (ie. http://localhost/revo/)
