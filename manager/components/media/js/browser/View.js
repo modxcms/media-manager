@@ -99,6 +99,7 @@ define(
                 }]
             });
             Media.HomeView.superclass.constructor.call(this, config);
+            //store.load();
         };
         Ext.extend(Media.HomeView, Ext.Container, {
             /**

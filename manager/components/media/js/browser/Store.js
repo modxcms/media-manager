@@ -5,6 +5,13 @@ define(
      * @return {Ext.data.JsonStore}
      */
     function() {
+        var url = MODx.config.connector_url
+            ,action = 'browser/directory/getFiles';
+
+        if (!MODx.panel.FileTree) {
+            url = MODx.config.connectors_url+'browser/directory.php';
+            action = 'getfiles';
+        }
         /**
          * Shared store for both view types
          *
@@ -15,11 +22,11 @@ define(
             ,dir: ''
         });
         Ext.apply(params, {
-            action: 'browser/directory/getFiles'
+            action: action
         });
 
         var store = new Ext.data.JsonStore({
-            url: MODx.config.connector_url
+            url: url
             ,baseParams: params
             ,root: 'results'
             ,totalProperty: 'total'
