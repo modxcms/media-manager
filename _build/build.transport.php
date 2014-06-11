@@ -63,7 +63,7 @@ $builder->createPackage(PKG_NAME_LOWER, PKG_VERSION, PKG_RELEASE);
 $ns = $modx->newObject('modNamespace');
 $ns->fromArray(array(
     'name' => PKG_NAME_LOWER,
-    //'path' => '',
+    'path' => '{core_path}/components/' . PKG_NAME_LOWER .'/',
 ), '', true);
 
 $attr = array(
@@ -82,6 +82,32 @@ $vehicle->resolve('file', array(
 $vehicle->resolve('file', array(
     'source' => $sources['source_core'],
     'target' => "return MODX_CORE_PATH . 'components/';",
+));
+$builder->putVehicle($vehicle);
+
+
+// Load menu
+$modx->log(modX::LOG_LEVEL_INFO, 'Packaging in menu 2.2...');
+$menu = include $sources['data'] . 'transport.menu-2.2.php';
+if (empty($menu)) {
+    $modx->log(modX::LOG_LEVEL_ERROR, 'Could not package in menu.');
+}
+$vehicle = $builder->createVehicle($menu, array (
+    xPDOTransport::PRESERVE_KEYS => true,
+    xPDOTransport::UPDATE_OBJECT => true,
+    xPDOTransport::UNIQUE_KEY => 'text',
+    xPDOTransport::RELATED_OBJECTS => true,
+    xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array (
+        'Action' => array (
+            xPDOTransport::PRESERVE_KEYS => false,
+            xPDOTransport::UPDATE_OBJECT => true,
+            xPDOTransport::UNIQUE_KEY => array ('namespace', 'controller'),
+        ),
+    ),
+));
+$modx->log(modX::LOG_LEVEL_INFO, 'Adding in PHP resolvers...');
+$vehicle->validate('php', array(
+    'source' => $sources['validators'] . 'modx-2.2.php',
 ));
 $builder->putVehicle($vehicle);
 

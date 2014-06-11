@@ -124,13 +124,13 @@ class Media
             'manager' => $this->modx->getOption(
                 "{$prefix}.manager_path",
                 $config,
-                $this->modx->getOption('manager_path') . "components/{$prefix}/"
+                $this->modx->getOption('manager_path') . "assets/components/{$prefix}/"
             ),
             // Manager assets URL
             'manager_url' => $this->modx->getOption(
                 "{$prefix}.manager_url",
                 $config,
-                $this->modx->getOption('manager_url') . "components/{$prefix}/"
+                $this->modx->getOption('manager_url') . "assets/components/{$prefix}/"
             ),
         );
     }
