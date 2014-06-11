@@ -26,6 +26,10 @@ define(
             ,root: 'results'
             ,totalProperty: 'total'
             ,fields: ['id', 'name', 'description', 'thumb', 'size', 'selected']
+            ,sortInfo: {
+                field: 'name'
+                ,direction: 'ASC'
+            }
         });
 
         store.load();
