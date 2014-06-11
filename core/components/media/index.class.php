@@ -51,6 +51,11 @@ abstract class MediaManagerController extends modExtraManagerController
      */
     public function loadBase()
     {
+        $version = $this->modx->getVersionData();
+        if (version_compare($version['full_version'], '2.3.0-dev') === -1) {
+            $this->addCss($this->cssURL . 'font-awesome.css');
+        }
+
         $this->addCss($this->cssURL . 'app.css');
 
         $this->addHtml(
@@ -126,7 +131,7 @@ class IndexManagerController extends MediaManagerController
     public static function getDefaultController()
     {
         $version = self::getModxVersion();
-        if (version_compare($version['full_version'], '2.3.0') >= 0) {
+        if (version_compare($version['full_version'], '2.3.0-dev') >= 0) {
             return 'browser';
         }
 

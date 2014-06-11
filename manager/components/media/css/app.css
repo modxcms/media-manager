@@ -1,0 +1,171 @@
+.x-column {
+  margin: 0; }
+  .x-column + .x-column {
+    margin-left: 15px; }
+
+.preview.expander {
+  background: #333;
+  color: #fff;
+  opacity: 0; }
+  .preview.expander .main {
+    padding: 10px; }
+    .preview.expander .main a.close {
+      float: right;
+      color: #fff; }
+    .preview.expander .main .summary {
+      width: 30%;
+      float: left;
+      clear: left; }
+      .preview.expander .main .summary img {
+        border: 5px solid #fff; }
+      .preview.expander .main .summary dt {
+        font-weight: bold; }
+    .preview.expander .main .meta {
+      width: 70%;
+      float: left; }
+      .preview.expander .main .meta .section h3 {
+        border-bottom: 1px dashed; }
+  .preview.expander .bottom-actions {
+    background: #111;
+    padding: 10px; }
+    .preview.expander .bottom-actions li {
+      background: #000;
+      display: inline-block;
+      margin-right: 10px;
+      padding: 5px; }
+      .preview.expander .bottom-actions li a {
+        color: #fff;
+        text-decoration: none; }
+
+li.record .preview.expander {
+  margin-top: 10px;
+  position: absolute;
+  top: auto;
+  left: 0;
+  width: 100%;
+  overflow: hidden; }
+  li.record .preview.expander dt, li.record .preview.expander dl {
+    display: block; }
+  li.record .preview.expander dt {
+    float: left; }
+
+ul.data li.record {
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 10px;
+  position: relative;
+  width: 300px;
+  height: 100px; }
+  ul.data li.record.x-view-selected {
+    opacity: .7; }
+  ul.data li.record > a {
+    display: block;
+    text-align: center;
+    text-decoration: none; }
+    ul.data li.record > a span {
+      display: block; }
+  ul.data li.record .inline-actions {
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    line-height: 100%; }
+    ul.data li.record .inline-actions ul {
+      text-align: center;
+      position: relative;
+      margin-top: 15%;
+      display: block;
+      padding: 5px; }
+    ul.data li.record .inline-actions li {
+      display: inline-block; }
+      ul.data li.record .inline-actions li a.do {
+        color: #fff;
+        background: #111;
+        padding: 10px;
+        border-radius: 25px;
+        font-size: 20px; }
+
+#content-wrapper .x-list-body {
+  float: none; }
+
+dl.record .grid-menu {
+  width: 100%; }
+  dl.record .grid-menu .x-menu {
+    position: absolute;
+    right: 4px;
+    text-align: right;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    overflow: hidden; }
+  dl.record .grid-menu .x-menu,
+  dl.record .grid-menu .x-menu-list-item {
+    background: #333;
+    color: #fff; }
+  dl.record .grid-menu a.x-menu-item {
+    color: #fff; }
+  dl.record .grid-menu .x-menu-item-active {
+    background: #fff;
+    color: #333; }
+    dl.record .grid-menu .x-menu-item-active a.x-menu-item {
+      color: #333; }
+dl.record .listActions {
+  background: #333;
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px;
+  display: block;
+  text-align: center; }
+dl.record .active .listActions {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0; }
+
+.dropzone {
+  position: absolute;
+  top: 0;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  width: 100%;
+  height: 100%; }
+  .dropzone:after {
+    content: "\f019";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    position: absolute;
+    font-size: 400px;
+    color: #fff;
+    opacity: .5;
+    top: 50%;
+    left: 50%;
+    margin: -300px 0 0 -200px; }
+  .dropzone .uploader {
+    background: #333;
+    color: #000;
+    position: relative;
+    width: 70%;
+    margin: 0 auto;
+    padding: 15px;
+    border-radius: 20px;
+    z-index: 2; }
+    .dropzone .uploader li.upload-record {
+      margin-bottom: 1em;
+      line-height: 2em;
+      height: 2em; }
+      .dropzone .uploader li.upload-record span {
+        display: inline-block; }
+      .dropzone .uploader li.upload-record .filename {
+        width: 30%; }
+      .dropzone .uploader li.upload-record .fileprogress {
+        height: 100%;
+        background: pink;
+        border-radius: 3px;
+        width: 50%;
+        overflow: hidden; }
+      .dropzone .uploader li.upload-record .progress {
+        height: 100%;
+        background: #000; }
+      .dropzone .uploader li.upload-record .fileactions {
+        float: right; }

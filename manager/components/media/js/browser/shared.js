@@ -1,6 +1,6 @@
 define(
     [
-        'text!browser/preview.html'
+        'text!tpl/preview.html'
         ,'browser/Update', 'browser/upload'
     ],
 
@@ -31,6 +31,12 @@ define(
                     .apply(record.json);
             }
 
+            /**
+             *
+             * @param node
+             * @param vent
+             * @returns {*}
+             */
             ,displayPreview: function(node, vent) {
                 if (!vent) {
                     vent = node.event;
@@ -49,6 +55,11 @@ define(
                 this.afterPreviewRendered(node, record);
             }
 
+            /**
+             * Fade the given element and remove it from the DOM
+             *
+             * @param {Ext.Element} elem
+             */
             ,fadeAndDestroy: function(elem) {
                 elem.animate({
                     opacity: {
@@ -60,6 +71,12 @@ define(
                 });
             }
 
+            /**
+             * Build the given content and append it to the given node
+             *
+             * @param node
+             * @param content
+             */
             ,previewToDOM: function(node, content) {
                 Ext.DomHelper.append(node, content);
                 var elem = Ext.get(node).down(this.previewSelector);
@@ -101,6 +118,11 @@ define(
                 );
             }
 
+            /**
+             * Toggle selection for the given record index
+             *
+             * @param {Number} index
+             */
             ,toggleSelection: function(index) {
                 var node = this.getNode(index)
                     ,record = this.getRecord(node);
@@ -171,6 +193,9 @@ define(
                 });
             }
 
+            /**
+             * Wrapper method to reload the JSON store
+             */
             ,refreshStore: function() {
                 this.store.reload();
             }

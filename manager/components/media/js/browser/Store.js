@@ -1,5 +1,5 @@
 define(
-    [],
+    ['utils/version'],
 
     /**
      * @return {Ext.data.JsonStore}

@@ -1,6 +1,6 @@
 define(
     [
-        'text!browser/list.html'
+        'text!tpl/list.html'
         ,'browser/Store', 'browser/shared'
     ],
 

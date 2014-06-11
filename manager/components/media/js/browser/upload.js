@@ -1,5 +1,5 @@
 define(
-    ['text!browser/uploader.html'],
+    ['text!tpl/uploader.html'],
 
     /**
      * @param {string} UploaderTpl
