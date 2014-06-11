@@ -16,11 +16,12 @@ define(
         Media.HomeView = function(config) {
             config = config || {};
 
+            // Get the type of view previously used, falling back to 'data' (options : list|data)
             var viewType = Ext.state.Manager.get('media-view', 'data');
 
             Ext.apply(config, {
                 border: false
-                ,baseCls: 'modx-formpanel'
+                //,baseCls: 'modx-formpanel'
                 ,cls: 'container'
                 ,layout: 'anchor'
                 ,anchor: '100%'

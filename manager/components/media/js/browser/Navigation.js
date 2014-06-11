@@ -14,7 +14,7 @@ define(
             config = config || {};
 
             Ext.applyIf(config, {
-                _treePrefix: 'source-tree-'
+                _treePrefix: 'media-source-tree-'
                 ,autoHeight: true
                 ,defaults: {
                     autoHeight: true

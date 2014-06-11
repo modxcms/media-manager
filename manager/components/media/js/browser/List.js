@@ -120,14 +120,6 @@ define(
                 container.removeClass('active');
             }
 
-//            ,toggleSelection: function(index) {
-//                if (this.getSelectedIndexes().indexOf(index) != -1) {
-//                    this.deselect(index);
-//                } else {
-//                    this.select(index, true);
-//                }
-//            }
-
             ,onClickTest: function(me, index, node, vent) {
                 var record = this.getRecord(node)
                     ,target = vent.getTarget('', '', true);
@@ -149,10 +141,9 @@ define(
             }
 
             ,previewToDOM: function(node, preview) {
-                var container = Ext.get(node)
-                    ,target = container.down('div.x-clear');
+                var container = Ext.get(node);
 
-                Ext.DomHelper.insertBefore(target, preview, true);
+                container.insertHtml('beforeEnd', preview);
                 var previewElement = container.down('div.preview');
                 this.animatePreview(previewElement);
             }

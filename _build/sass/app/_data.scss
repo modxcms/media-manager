@@ -9,6 +9,7 @@ ul.data {
         margin-bottom: 10px;
         position: relative;
         //background: rgba(0, 0, 0, .8);
+        // @todo: handle custom sized thumbs
         width: 300px;
         height: 100px;
 
@@ -30,6 +31,7 @@ ul.data {
             }
         }
 
+        // Actions displayed on 'over'
         .inline-actions {
             background: rgba(0, 0, 0, .5);
             position: absolute;

@@ -41,6 +41,7 @@ define(
                 this.component.getUploader = this.getUploader.createDelegate(this);
 
                 // Add the drop zone DOM element
+                // @todo remove, this is logic bound to the container
                 this.component.on('render', this.setDropZone, this);
                 if (!this.storeHasListener()) {
                     this.component.store.on('load', function() {
@@ -49,12 +50,16 @@ define(
                 }
             }
 
+            /**
+             * Add some events to the component
+             */
             ,addContainerEvents: function() {
                 this.component.addEvents('beforeShowDropZone');
 
                 this.component.on('beforeShowDropZone', function() {
-                    console.log('on before show drop zone');
+                    console.info('[Ext.ux.UploadPlugin#addcontainerEvents] on before show drop zone');
 
+                    // @todo remove, this is logic bound to the container
                     var preview = this.component.el.query('div.preview');
                     if (preview.length === 1) {
                         this.component.fadeAndDestroy(Ext.get(preview[0]));
@@ -98,6 +103,7 @@ define(
                         this.dz = Ext.get(dzQuery[0]);
                         return false;
                     }
+
                     console.info('Adding dropzone, source %o, el %o', source, el);
                     // Get the last record node (@todo: handle other containers/xtypes)
                     var lastNode = el.query(source.itemSelector +':last-of-type')
@@ -116,6 +122,7 @@ define(
                             return false;
                         }
                     }
+
                     this.listenerTry = 0;
                     console.info('last record node', last);
                     this.dz = Ext.DomHelper.insertAfter(last, tpl, true);
