@@ -98,6 +98,7 @@ define(
                         click: this.listData
                         ,scope: this
                     }
+                    ,hideFiles: true
                 });
             }
 
