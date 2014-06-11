@@ -41,7 +41,6 @@ abstract class MediaManagerController extends modExtraManagerController
         $this->jsURL = $this->service->config['mgr_js_url'];
         $this->cssURL = $this->service->config['mgr_css_url'];
         $this->loadBase();
-        $this->loadRTE();
     }
 
     /**
@@ -82,23 +81,6 @@ HTML
         }
 
         return 'MODx.action["media:index"]';
-    }
-
-    /**
-     * Load RTE if enabled
-     *
-     * @return void
-     */
-    public function loadRTE()
-    {
-        if ($this->service->config['use_rte']) {
-            new meltingmedia\rte\Loader(
-                $this->modx,
-                array(
-                    'namespace' => $this->service->prefix,
-                )
-            );
-        }
     }
 
     /**
