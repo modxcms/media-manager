@@ -97,7 +97,11 @@ define(
                 menu.add({
                     text: 'Edit'
                     ,handler: function(btn, vent) {
-                        var record = this.getRecord(node).json;
+                        var raw = this.getRecord(node)
+                            ,record = raw.json;
+                        Ext.apply(record, {
+                            source: raw.store.baseParams.source
+                        });
                         this.updateRecord(record, vent);
                     }
                     ,scope: this

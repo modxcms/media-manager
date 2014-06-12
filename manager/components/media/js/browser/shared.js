@@ -140,36 +140,26 @@ define(
                 console.log('navigate!', index);
             }
 
-            ,createRecord: function(btn, e) {
-                this.CmpItemWindow = MODx.load({
-                    xtype: 'media-window-cmpitem-create'
-                    ,listeners: {
-                        success: {
-                            fn: this.refreshStore
-                            ,scope: this
-                        }
-                    }
-                });
-                this.CmpItemWindow.show(e.target);
-            }
-
             ,updateRecord: function(record, e) {
                 if (!e) {
                     e = record.event;
                     record = record.record.json;
                 }
-                this.CmpItemWindow = MODx.load({
-                    xtype: 'media-window-cmpitem-update'
+                this.RenameWindow = MODx.load({
+                    xtype: 'media-update'
                     ,record: record
                     ,listeners: {
                         success: {
                             fn: this.refreshStore
                             ,scope: this
                         }
+                        ,failure: function(response) {
+                            console.error('[shared#updateRecord]', response);
+                        }
                     }
                 });
-                this.CmpItemWindow.setValues(record);
-                this.CmpItemWindow.show(e.target);
+                this.RenameWindow.setValues(record);
+                this.RenameWindow.show(e.target);
             }
 
             ,removeRecord: function(record) {

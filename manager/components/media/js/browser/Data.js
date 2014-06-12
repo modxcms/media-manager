@@ -112,6 +112,7 @@ define(
                                             console.error('action %s not found in scope %o', action, this);
                                             return;
                                         }
+                                        record.json.source = me.store.baseParams.source;
                                         var params = {
                                             node: containerNode
                                             ,record: record
