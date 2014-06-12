@@ -17,6 +17,7 @@ define(
             Ext.applyIf(config, {
                 store: store
                 ,itemSelector: 'dl.record'
+                ,emptyText: '<dl class="empty"><dt>No files</dt></dl>'
                 ,hideHeaders: true
                 //,multiSelect: true
                 ,plugins: ['upload']

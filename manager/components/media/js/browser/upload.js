@@ -105,6 +105,7 @@ define(
                     }
 
                     console.info('Adding dropzone, source %o, el %o', source, el);
+
                     // Get the last record node (@todo: handle other containers/xtypes)
                     var lastNode = el.query(source.itemSelector +':last-of-type')
                         ,last = Ext.get(lastNode[0])
@@ -112,6 +113,13 @@ define(
                         ,raw = '<div class="dropzone">Drop files</div>'
                         ,tpl = new Ext.XTemplate(raw).apply()
                     ;
+
+                    if (source.store.getRange().length < 1) {
+                        // No results in the store
+                        source.showEmpty();
+                        last = Ext.get(el.query('.empty')[0]);
+                    }
+
                     if (!last) {
                         if (this.listenerTry < 2) {
                             this.listenerTry += 1;

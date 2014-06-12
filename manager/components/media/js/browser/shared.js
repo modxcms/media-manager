@@ -15,6 +15,10 @@ define(
          */
         var shared = {
             previewSelector: 'div.preview'
+            ,emptyText: '<li class="empty">No files</li>'
+            ,showEmpty: function() {
+                this.getTemplateTarget().update(this.emptyText);
+            }
             /**
              * Build the preview panel for the given record
              *
