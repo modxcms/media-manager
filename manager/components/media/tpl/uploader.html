@@ -3,10 +3,12 @@
     <tpl if="files && files.length &gt; 0">
         <ul>
             <tpl for="files">
-                <li class="upload-record">
+                {[console.log(values, parent.files)]}
+                <li class="upload-record" data-file="{idx}">
                     <span class="filename">{name}</span>
                     <span class="fileprogress">
-                        <span class="progress" style="width: {[Math.floor((Math.random() * 100) + 1)]}%"></span>
+                        <!--<span class="progress" style="width: {[Math.floor((Math.random() * 100) + 1)]}%"></span>-->
+                        <span class="progress"></span>
                     </span>
                     <span class="fileactions">actions</span>
                 </li>

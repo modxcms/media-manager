@@ -129,6 +129,7 @@ define(
 
                 // Required to rename/manipulate files
                 Store.setBaseParam('source', source);
+                Store.setBaseParam('dir', dir);
                 Store.load(options);
             }
         });

@@ -6,6 +6,13 @@
     width: 100%;
     height: 100%;
 
+    &.allowed {
+        background: rgba(0, 255, 0, .65);
+    }
+    &.denied {
+        background: rgba(255, 0, 0, .65);
+    }
+
     &:after {
         content: "\f019";
         font-family: FontAwesome;

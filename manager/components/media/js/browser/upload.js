@@ -177,8 +177,18 @@ define(
                 return false;
             }
             ,onDragOver: function(vent) {
+                //vent = window.event;
                 vent.stopPropagation();
                 vent.preventDefault();
+                var type = window.event.dataTransfer.types[0];
+
+                var target = vent.getTarget('', '', true);
+
+                if (type != 'Files') {
+                    target.addClass('denied');
+                } else {
+                    target.addClass('allowed');
+                }
 
                 return false;
             }
@@ -200,19 +210,139 @@ define(
 
                 if (!files || files.length < 1) {
                     this.hideDropZone();
+                    return;
                 }
 
-                Ext.each(files, function(file) {
-                    console.log('file', file);
+                // Iterate over files
+                Ext.each(files, function(file, idx) {
+                    // @todo: handle size/types restrictions
+                    file.idx = idx;
                     content.push(file);
                 });
 
+                // Upload progress templates
                 var uploadContent = new Ext.XTemplate(UploaderTpl).apply({
                     files: content
                 });
 
+                this.cleanDropzoneClasses();
                 this.dz.update(uploadContent);
+                this.uploadFiles(content);
                 //dz.hide();
+            }
+
+            ,uploadFiles: function(files) {
+                Ext.each(files, function(file) {
+                    this.uploadFile(file);
+                    //this.uploadExt(file);
+                }, this);
+            }
+
+            ,uploadFile: function(file) {
+
+                var xhr = new XMLHttpRequest()
+                    ,me = this;
+
+                var path = me.component.store.baseParams.dir
+                    ,source = me.component.store.baseParams.source;
+
+                var params = {
+                    action: 'upload'
+                    ,'HTTP_MODAUTH': MODx.siteId
+                    ,source: source
+                    ,path: path
+                };
+
+                // Target progress bar for this file
+                var progress = Ext.get(
+                    Ext.query('[data-file="'+ file.idx +'"] .progress')[0]
+                );
+
+                if (xhr.upload) {
+
+                    xhr.upload.addEventListener('progress', function(e) {
+                        var pc = Math.round((e.loaded / e.total) * 100);
+                        me.setProgress(progress, pc);
+                    }, false);
+
+                    xhr.onreadystatechange = function(e) {
+                        //console.log(xhr, e);
+                        if (xhr.readyState == 4) {
+                            //progress.className = (xhr.status == 200 ? "success" : "failure");
+                            console.log(xhr.status);
+                            if (xhr.responseText) {
+                                console.log('%s uploaded', file.name);
+                                console.log('response', Ext.decode(xhr.responseText));
+                            }
+                        }
+                    };
+
+
+                    console.log('upload to source %s in path %s', source, path);
+
+                    xhr.open('POST', Media.config.connector_url +'?'+ me.buildQuery(params), true);
+                    //xhr.setRequestHeader('X_FILENAME', file.name);
+                    xhr.send(file);
+                }
+            }
+
+            ,uploadExt: function(file) {
+
+                var me = this;
+
+                // Target progress bar for this file
+                var progress = Ext.get(
+                    Ext.query('[data-file="'+ file.idx +'"] .progress')[0]
+                );
+
+                var path = me.component.store.baseParams.dir
+                    ,source = me.component.store.baseParams.source;
+
+                var params = {
+                    action: 'upload'
+                    ,'HTTP_MODAUTH': MODx.siteId
+                    ,source: source
+                    ,path: path
+                };
+
+                var ajax = Ext.Ajax;
+//                ajax.addListener('beforerequest', function(conn, options) {
+//                    console.log('Before request!', conn, options);
+//                    conn.addListener('progress', function() {
+//                        console.log('progress!');
+//                    });
+//                });
+
+                ajax.request({
+                    url: Media.config.connector_url
+                    ,params: params
+                    ,method: 'POST'
+                    //,isUpload: true
+                    ,success: function(response) {
+                        console.log(Ext.decode(response.responseText));
+                    }
+                    ,failure: function(response) {
+                        console.log(Ext.decode(response.responseText));
+                    }
+                });
+            }
+
+            ,buildQuery: function(obj) {
+                var parts = [];
+                for (var i in obj) {
+                    if (obj.hasOwnProperty(i)) {
+                        parts.push(encodeURIComponent(i) + "=" + encodeURIComponent(obj[i]));
+                    }
+                }
+
+                return parts.join('&');
+            }
+
+            ,random: function() {
+                return Math.floor((Math.random() * 100) + 1);
+            }
+            ,setProgress: function(elem, width) {
+                elem.setStyle('width', width +'%');
             }
 
             ,hideDropZone: function() {
@@ -222,6 +352,12 @@ define(
 
             ,resetDropZone: function() {
                 this.dz.update('Drop files');
+                this.cleanDropzoneClasses();
+            }
+            ,cleanDropzoneClasses: function() {
+                this.dz
+                    .removeClass('denied')
+                    .removeClass('allowed');
             }
 
             ,showDropZone: function() {
