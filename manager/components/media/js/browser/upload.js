@@ -1,10 +1,10 @@
 define(
-    ['text!tpl/uploader.html'],
+    ['text!tpl/uploader.html', 'vendor/dropzone/downloads/dropzone'],
 
     /**
      * @param {string} UploaderTpl
      */
-    function(UploaderTpl) {
+    function(UploaderTpl, DropZone) {
         /**
          * Plugin to handle drag & drop to components
          *
@@ -146,6 +146,23 @@ define(
                 var el = this.component.getEl()
                     ,dz = this.dz;
 
+
+                var path = this.component.store.baseParams.dir
+                    ,source = this.component.store.baseParams.source;
+
+                var params = {
+                    //action: 'upload'
+                    action: 'browser/file/upload'
+                    ,'HTTP_MODAUTH': MODx.siteId
+                    ,source: source
+                    ,path: path
+                };
+
+                var myDropzone = new DropZone('div.dropzone', {
+                    url: MODx.config.connector_url + '?' + this.buildQuery(params)
+                });
+                console.log(myDropzone);
+
                 this.relayEvents(dz, ['dragleave', 'dragover', 'drop', 'mouseleave']);
                 el.on('dragenter', this.onDragEnter, this, {
                     stopEvent: true
@@ -161,7 +178,7 @@ define(
                 this.on({
                     dragleave: this.onDragLeave
                     ,dragover: this.onDragOver
-                    ,drop: this.onDrop
+                    //,drop: this.onDrop
                     ,mouseleave: this.hideDropZone
                     ,scope: this
                 });
